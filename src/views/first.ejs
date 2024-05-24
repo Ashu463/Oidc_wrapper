@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home page</title>
+  </head>
+  <body>
+    <h1>First page</h1>
+    <form method="get" id="form">
+      <label for="scopes">Enter Scopes:</label>
+      <input
+        type="text"
+        id="scopes"
+        placeholder="openid profile"
+        value="openid email"
+      />
+      <input type="submit" value="submit" />
+      <a href="http://localhost:3000/oidc/session/end">Logout</a>
+    </form>
+
+    <script>
+      const form = document.getElementById("form");
+      const scopesInput = document.getElementById('scopes');
+      const baseUrl ="/oidc/auth?client_id=app&response_type=code&response_mode=query&redirect_uris=http://localhost:3001/callback&code_challenge=nqWxOqTBUa9iu9G5pL6LWChLS5TYEcyhwWbbQlj79ZU&code_challenge_method=S256"
+      const fun = () => {
+    };
+    form.addEventListener('submit', (e => {
+        e.preventDefault();
+        const scopes = scopesInput.value.replace(/\s+/, ' ');
+        console.log(scopes);
+        window.location = `${baseUrl}&scope=${scopes || 'openid email'}`;
+      }))
+    </script>
+  </body>
+</html>
